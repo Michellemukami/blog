@@ -1,42 +1,42 @@
 {% extends 'base.html'%}
-{% import 'macros.html' as macro%}
 {% block content %}
+{% for quote in quotes %}
+<div class="card">
+  <div class="card-header">
+    Quote
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>{{quote.quote}}</p>
+      <footer class="blockquote-footer">Developer<cite title="Source Title">{{quote.author}}</cite></footer>
+    </blockquote>
+  </div>
+</div><br>
+{% endfor %}
+  {% for posts in posts.items %}
+      <article class="media content-section">
+        <img class = "rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/'+ post.author.image_file) }}" alt="">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="{{url_for('users.user_posts', username = post.author.username)}}">{{ post.author.username }}</a>
+       
+      </div>
+      <h2><a class="article-title" href="{{ url_for('posts.post', post_id = post.id) }}">{{ post.title }}</a></h2>
+      <p class="article-content">{{ post.content }}</p>
+      <p>Category:<span class="text-muted">{{post.category}}</span></p>
 
-<div class="jumbotron">
-  <h1>IMPRESS US!</h1>
-  <h1>Pitches</h1>
-</div>
-
-<hr>
-<p>In life, you only have 60 seconds to impress someone. 1 minute can make or break you. Here is your chance to shine so sign up and post your pitch and let others see</p>
-
-
-<div class="container">
-   <div class="row">
-     <p>View others pitches</p>
-       <div class="col-md-4">
-           <div class="well well-lg">
-               <h3>Biography Pitches</h3>
-               
-               <a href="{{url_for('main.biograpghy')}}" class="btn btn-primary -center">View</a>
-           </div>
-       </div>
-       <div class="col-md-4">
-        <div class="well well-lg">
-            <h3>Ideas Pitches</h3>
-            
-            <a href="{{url_for('main.idea')}}" class="btn btn-primary -center">View</a>
-        </div>
     </div>
-  
-       <div class="col-md-4">
-           <div class="well well-lg">
-               <h3>Inspiration Pitches</h3>
-              
-               <a href="{{url_for('main.inspiration')}}" class="btn btn-primary -center">View</a>
-           </div>
-       </div>
-   </div>
-</div>
- 
-  {% endblock %}
+    </article>
+  {% endfor %}
+  {% for page_num in pitches.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% if page_num %}
+      {% if posts.page == page_num %}
+      <a class="btn btn-info mb-4" href="{{url_for('main.home', page=page_num)}}">{{ page_num }}</a>
+      {% else %}
+      <a class="btn btn-outline-info mb-4" href="{{url_for('main.home', page=page_num)}}">{{ page_num }}</a>
+      {% endif %}
+    {% else %}
+      ...
+    {% endif %}
+  {% endfor %}
+{% endblock %}

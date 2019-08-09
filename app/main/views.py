@@ -1,9 +1,9 @@
 from flask import render_template,request,redirect,url_for,abort,flash
 from . import main
-from .forms import PostForm
+from .forms import BlogForm
 # from ..request import get_movies,get_movie,search_movie
 
-from ..models import Pitch,User
+from ..models import Blog,User
 from flask_login import login_required, current_user
 from .forms import UpdateProfile
 from .. import db,photos
@@ -18,7 +18,7 @@ def posts(category):
 @login_required
 def new_post():
 
-    form = PostForm()
+    form = BlogForm()
     if form.validate_on_submit():
         pitch = Pitch(title=form.title.data, content = form.content.data, category = form.category.data)
         db.session.add(pitch)
@@ -46,14 +46,14 @@ def home():
 
 @main.route('/pitches/inspiration')
 def inspiration():
-    posts=Pitch.query.filter_by(category='Inspirational')
+    posts=Blog.query.filter_by(category='Inspirational')
 
     return render_template('inspirational.html', posts=posts)
 
 
 @main.route('/pitches/biography')
 def biograpghy():
-    posts=Pitch.query.filter_by(category='Biography')
+    posts=Blog.query.filter_by(category='Biography')
 
     return render_template("biograghy.html", posts=posts)
 main.route('/user/<uname>/pitches')
@@ -67,7 +67,7 @@ def user_pitches(uname):
 @main.route('/pitches/idea')
 def idea():
 
-   posts=Pitch.query.filter_by(category='Ideas')
+   posts=Blog.query.filter_by(category='Ideas')
 
    return render_template("ideas.html", posts=posts)
 

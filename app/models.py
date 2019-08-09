@@ -29,20 +29,20 @@ class Blog(db.Model):
     category = db.Column(db.String(255))
     
     def __repr__(self):
-        return f"Pitch('{self.title}')"
+        return f"Blog('{self.title}')"
 
     @classmethod
  
-    def get_pitches(cls, category):
-       pitch = Pitch.query.filter_by(category=category).all()
+    def get_blogs(cls, category):
+       blogs = blog.query.filter_by(category=category).all()
 
-       return pitch
+       return blog
     def save_pitch(self):
         db.session.add(self)
         db.session.commit()
     @classmethod
     def clear_pitch(cls):
-        Pitch.all_pitchs.clear()
+        blogs.all_blogs.clear()
 
 
 
@@ -77,8 +77,16 @@ class User(UserMixin,db.Model):
     
 
 
+class Comment(db.Model):
+    comment = db.Column(db.String(100))
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitch.id'))
+    comment_id = db.Column(db.Integer, primary_key = True)
+    def __repr__(self):
+        return f"Comment('{self.comment}')"
 
-
-
+class Quote:
+    def __init__(self,quote,author):
+        self.quote=quote
+        self.author=author
 
     
