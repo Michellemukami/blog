@@ -1,7 +1,7 @@
-# Pitch-Perfect
+# Blogger
 
 ## Description
-This is an application that enables a user to post pitches and view other users' pitches. A user can log in to the application using their credentials.
+This is an application that enables a user to post blogs and view other users' blogs also can write comments on others blogs and th user has the power to delete blogs they find offensive . A user can log in to the application using their credentials.
 ### By MICHELLE MUKAMI
 
 ## Setup/Installation Requirements
@@ -16,9 +16,9 @@ This is an application that enables a user to post pitches and view other users'
 ## Cloning and running
 Clone the application using git clone(this copies the app onto your device). In your terminal:
 
-  ```  $ git clone https://github.com/saudahabib/pitch-perfect/```
+  ```  $ git clone https://github.com/michellemukami/blogger/```
   
-  ```  $ cd pitch-perfect```
+  ```  $ cd blogger```
 
 ## Creating the virtual environment
 
@@ -51,10 +51,10 @@ To run the tests for the class file:
 ## Behaviour driven development/ Specifications
 | Behaviour    | Input     | Output|
 | :------------- | :------------- |:---------|
-|   Post pitch     |     Pitch is saved in a database | Post from database|
+|   Post a blog     |     blog is saved in a database | blog from database|
 |Login and authenticate|Email address and password|Saved and used for authentication|
-
-
+|   write a comment     |     comment is saved in a database | comment from database|
+|  Delete a comment     |     comment is removed from the  database | no comments viewed|
 ## Support and contact details
 Feel free to reach out to me
 
