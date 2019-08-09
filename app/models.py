@@ -19,8 +19,8 @@ class Category(db.Model):
     name=db.Column(db.String(255))
 
 
-class Pitch(db.Model):
-    __tablename__ = 'pitch'
+class Blog(db.Model):
+    __tablename__ = 'blog'
 
     id = db.Column(db.Integer, primary_key = True )
     title = db.Column(db.String(100))
