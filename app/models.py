@@ -48,7 +48,7 @@ class Blog(db.Model):
 
 class User(UserMixin,db.Model):
     __tablename__ = 'users'
-    pitch = db.relationship('Pitch', backref = 'users', lazy="dynamic")
+    blog = db.relationship('Blog', backref = 'users', lazy="dynamic")
     id = db.Column(db.Integer,primary_key = True)
     username = db.Column(db.String(255),index = True)
     password = db.Column(db.String(255),index = True)
@@ -79,7 +79,7 @@ class User(UserMixin,db.Model):
 
 class Comment(db.Model):
     comment = db.Column(db.String(100))
-    pitch_id = db.Column(db.Integer, db.ForeignKey('pitch.id'))
+    pitch_id = db.Column(db.Integer, db.ForeignKey('blog.id'))
     comment_id = db.Column(db.Integer, primary_key = True)
     def __repr__(self):
         return f"Comment('{self.comment}')"

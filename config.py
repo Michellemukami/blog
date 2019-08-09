@@ -4,7 +4,7 @@ class Config:
 
    
     SECRET_KEY = ('kamikaze')
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://michelle:kami@localhost/kami'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://michelle:kami@localhost/blogger'
     UPLOADED_PHOTOS_DEST ='app/static/photos'
     MAIL_SERVER = 'smtp.googlemail.com'
     MAIL_PORT = 587
@@ -16,13 +16,13 @@ class Config:
     SIMPLEMDE_USE_CDN = True
     QUOTES_API='http://quotes.stormconsultancy.co.uk/random.json'
 class ProdConfig(Config):
-     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://michelle:kami@localhost/blogger'
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://michelle:kami@localhost/kami_test'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://michelle:kami@localhost/blogger_test'
    
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://michelle:kami@localhost/kami'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://michelle:kami@localhost/blogger'
     
     DEBUG = True
 

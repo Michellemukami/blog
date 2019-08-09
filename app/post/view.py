@@ -2,8 +2,8 @@ from flask import (render_template, url_for, flash,
                    redirect, request, abort, Blueprint)
 from flask_login import current_user, login_required
 from .. import db
-from ..models import Pitch
-from .form import PostForm
+from ..models import Blog
+from .form import BlogForm
 
 
 posts = Blueprint('posts',__name__)

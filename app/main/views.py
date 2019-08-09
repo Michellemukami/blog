@@ -38,9 +38,9 @@ def home():
 
    # Getting reviews by category
    page = request.args.get('page', 1, type=int)
-   inspiration = Pitch.get_pitches('inspiration')
-   biograghy = Pitch.get_pitches('biograghy')
-   business = Pitch.get_pitches('business')
+   inspiration = Blog.get_pitches('inspiration')
+   biograghy = Blog.get_pitches('biograghy')
+   business = Blog.get_pitches('business')
 
    return render_template('home.html', title=title, inspiration=inspiration, biograghy=biograghy, business=business)
 
