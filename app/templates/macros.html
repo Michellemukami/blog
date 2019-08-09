@@ -1,0 +1,24 @@
+{% macro displayCategoryList(category_list) %}
+{% for category in category_list%}
+  <div>
+   <a href="{{url_for('main.category',id=category.id)}}"><p>{{category.name|upper}}</p></a>
+  </div>
+
+  {% endfor %}
+  {% endmacro %}
+  
+
+
+{% macro displayPitches(pitches_list)%}
+{%for pitch in pitches_list%}
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 review-card">
+   <div class="well well-lg">
+       <h4>{{pitch.title}}</h4>
+       <p>{{pitch.content| truncate(100)}}</p>
+       <p>Written by: {{current_user.username}}
+              
+       </p>
+   </div>
+</div>
+{%endfor%}
+{%endmacro%}
