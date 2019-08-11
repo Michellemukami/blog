@@ -31,17 +31,12 @@ class Blog(db.Model):
     def __repr__(self):
         return f"Blog('{self.title}')"
 
-    @classmethod
- 
-    def get_blogs(cls, category):
-       blogs = blog.query.filter_by(category=category).all()
-
-       return blog
-    def save_pitch(self):
+    
+    def save_blog(self):
         db.session.add(self)
         db.session.commit()
     @classmethod
-    def clear_pitch(cls):
+    def clear_blog(cls):
         blogs.all_blogs.clear()
 
 

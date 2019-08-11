@@ -1,18 +1,24 @@
 from flask import render_template,request,redirect,url_for,abort,flash
 from . import main
 from .forms import BlogForm
-# from ..request import get_movies,get_movie,search_movie
-
+from app.request import get_quote
 from ..models import Blog,User
 from flask_login import login_required, current_user
 from .forms import UpdateProfile
 from .. import db,photos
 import markdown2 
 @main.route("/pitches")
-def posts(category):
-    posts=list(Pitch.query.filter_by(category=category))
-    return render_template("pitches.html",posts=posts)
+def posts(post_id):
+    form = CommentForm()
+    post = Pitch.query.get_or_404(post_id)
+    comments = Comment.query.all()
 
+    if form.validate_on_submit():
+        comment = Comment(comment=form.comment.data, pitch_id=post.id )
+        db.session.add(comment)
+        db.session.commit()
+        return redirect(url_for('posts.post',post_id=post.id))
+    return render_template('post.html', title = post.title, posts = posts,comments=comments, form=form)
 
 @main.route("/post/new", methods= ['GET', 'POST'])
 @login_required
@@ -20,8 +26,8 @@ def new_post():
 
     form = BlogForm()
     if form.validate_on_submit():
-        pitch = Pitch(title=form.title.data, content = form.content.data, category = form.category.data)
-        db.session.add(pitch)
+        blog = Blog(title=form.title.data, content = form.content.data, category = form.category.data)
+        db.session.add(blog)
         db.session.commit()
         
         return redirect(url_for('main.home'))
@@ -36,13 +42,13 @@ def home():
    '''
    title = 'Welcome to Pitch app'
 
-   # Getting reviews by category
+    
    page = request.args.get('page', 1, type=int)
-   inspiration = Blog.get_pitches('inspiration')
-   biograghy = Blog.get_pitches('biograghy')
-   business = Blog.get_pitches('business')
+   posts=Blog.query.all()
+   quotes = get_quote()
 
-   return render_template('home.html', title=title, inspiration=inspiration, biograghy=biograghy, business=business)
+
+   return render_template('home.html',posts=posts,quotes=quotes)
 
 @main.route('/pitches/inspiration')
 def inspiration():

@@ -1,0 +1,134 @@
+body {
+  background: #fafafa;
+  color: #333333;
+ 
+ 
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: 'Gentium Book Basic', cursive;
+  font-size: 20px;
+}
+
+h1, h2, h3, h4, h5, h6, #comment {
+  color: #444444;
+  font-family: 'Cherry Swash', cursive;
+}
+
+.bg-steel {
+  background-color: salmon;
+}
+
+
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+
+#legend {
+  margin: 0;
+  padding: 0;
+  display: flex;
+
+
+
+  background-color: #000;
+
+}
+#legend {
+  position: relative;
+  font-family: 'Cherry Swash', cursive;
+  text-transform: uppercase;
+  font-size: 2em;
+  letter-spacing: 4px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #000, #fff, #000);
+  background-repeat: no-repeat;
+  background-size: 80%;
+  animation: animate 3s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0);
+}
+
+@keyframes animate {
+  0% {
+    background-position: -500%;
+  }
+  100% {
+    background-position: 500%;
+  }
+}
+
+#update{
+
+  color: yellow;
+}
+
+#comtitle{
+  color: salmon;
+}
+
+#subscribe{
+  width: 100%;
+
+}
+
+.btn-default{
+  border: 2px solid #e3e3e3;
+  background-color: salmon;
+}
+
+.btn-default:hover{
+  background-color: #fcb0fc;
+}
