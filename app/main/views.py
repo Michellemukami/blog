@@ -1,6 +1,6 @@
 from flask import render_template,request,redirect,url_for,abort,flash
 from . import main
-from .forms import BlogForm
+from .forms import BlogForm,CommentForm
 from app.request import get_quote
 from ..models import Blog,User
 from flask_login import login_required, current_user
@@ -106,12 +106,17 @@ def update_pic(uname):
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
 @main.route('/post/<int:id>')
-def single_post(id):
-    post=post.query.get(id)
-    if post is None:
-        abort(404)
-    format_post = markdown2.markdown(post.movie_review,extras=["code-friendly", "fenced-code-blocks"])
-    return render_template('post.html',post = post,format_post=format_post)
+def comment(id):
+    form = CommentForm()
+    posts = Comment.query.get_or_404(post_id)
+    comments = Comment.query.all()
+
+    if form.validate_on_submit():
+        comment = Comment(comment=form.comment.data, pitch_id=post.id )
+        db.session.add(comment)
+        db.session.commit()
+        return redirect(url_for('posts.post',post_id=post.id))
+    return render_template('post.html', title = post.title, post = post,comments=comments, comment_form=form)
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
@@ -150,3 +155,4 @@ def delete_post(post_id):
     db.session.commit()
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('main.home'))
+    
