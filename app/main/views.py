@@ -46,6 +46,11 @@ def home():
    page = request.args.get('page', 1, type=int)
    posts=Blog.query.all()
    quotes = get_quote()
+   if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_pic_path = path
+        db.session.commit()
    
 
    return render_template('home.html',posts=posts,quotes=quotes)
