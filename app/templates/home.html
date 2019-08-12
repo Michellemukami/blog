@@ -1,4 +1,5 @@
 {% extends 'base.html'%}
+{% import "bootstrap/wtf.html" as wtf %}
 {% block content %}
 {% for quote in quotes %}
 <div class="card">
@@ -16,16 +17,14 @@
 {% if posts %}
   {% for posts in posts %}
       <article class="media content-section">
-        <img class = "rounded-circle article-img" src="{{url_for('static',filename=current_user.profile_pic_path)}}" alt="">
+        <img class = "rounded-circle article-img" src="{{ url_for('static', filename='photos/'+ posts.users.profile_pic_path) }}" alt="">
     <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2" href="">{{ current_user.username}}</a>
-       
-      </div>
+        <a class="mr-2" href="">{{ posts.users.username }}</a>
       <h2><a class="article-title" href="">{{ posts.title }}</a></h2>
       <p class="article-content">{{ posts.content }}</p>
       <p>Category:<span class="text-muted">{{posts.category}}</span></p>
-
+      <a href="{{url_for('main.comment')}}" class="btn btn-primary -center">Comment</a>
     </div>
     {% else %}
     </article>
@@ -33,5 +32,7 @@
     {%endfor%}
     {% endif %}
  
- 
+    
+
+
 {% endblock %}

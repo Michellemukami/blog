@@ -2,7 +2,7 @@ from flask import render_template,request,redirect,url_for,abort,flash
 from . import main
 from .forms import BlogForm,CommentForm
 from app.request import get_quote
-from ..models import Blog,User
+from ..models import Blog,User,Comment
 from flask_login import login_required, current_user
 from .forms import UpdateProfile
 from .. import db,photos
@@ -46,7 +46,7 @@ def home():
    page = request.args.get('page', 1, type=int)
    posts=Blog.query.all()
    quotes = get_quote()
-
+   
 
    return render_template('home.html',posts=posts,quotes=quotes)
 
@@ -105,18 +105,18 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
-@main.route('/post/<int:id>')
-def comment(id):
+@main.route('/comment')
+def comment():
     form = CommentForm()
-    posts = Comment.query.get_or_404(post_id)
-    comments = Comment.query.all()
+    posts = Comment.query.all()
+    comment = Comment.query.all()
 
     if form.validate_on_submit():
-        comment = Comment(comment=form.comment.data, pitch_id=post.id )
+        comment = Comment(comment=form.comment.data, pitch_id=blog.id )
         db.session.add(comment)
         db.session.commit()
-        return redirect(url_for('posts.post',post_id=post.id))
-    return render_template('post.html', title = post.title, post = post,comments=comments, comment_form=form)
+        return redirect(url_for('main.home',))
+    return render_template('new_comment.html', title = post.title, posts = posts,comment=comment, comment_form=form,pitch_id=blog.id)
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
@@ -145,10 +145,10 @@ def update_post(post_id):
     return render_template('create_post.html',title = 'Update Post', form = form, legend = 'Update Post')
 
 
-@main.route("/post/<int:post_id>/delete", methods= ['GET','POST'])
+@main.route("/post/delete", methods= ['GET','POST'])
 @login_required
 def delete_post(post_id):
-    post = Pitch.query.get_or_404(post_id)
+    posts = Blog.query.all()
     if post.author != current_user:
         abort(403)
     db.session.delete(post)

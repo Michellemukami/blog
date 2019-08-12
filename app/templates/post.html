@@ -54,7 +54,7 @@
 </div>
    <!-- Comments  -->
 
-   <h4>Comments for <span id="comtitle">"{{post.title}}"</span></h4>
+   <h4>Comments for <span id="comtitle">"{{posts.title}}"</span></h4>
    <div class="content-section">
      {%for comment in comments%}
        {% if comment.pitch_id == post.id %}
@@ -108,5 +108,5 @@
  </div>
 
 {% endblock %}
-{%endblock%}
+
 

@@ -27,6 +27,9 @@ class Blog(db.Model):
     content = db.Column(db.String(200))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     category = db.Column(db.String(255))
+    profile_pic_path = db.Column(db.String())
+    
+    
     
     def __repr__(self):
         return f"Blog('{self.title}')"
