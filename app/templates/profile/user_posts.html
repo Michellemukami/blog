@@ -7,14 +7,16 @@
         <p>User post</p>
     </div>
     {% if posts %}
-   {%for posts in posts%}
+   {%for posts in blog.items%}
     <div class="panel panel-primary">
         {{current_user.username}}
         <div class="panel-heading">{{posts.category}}</div>
         <div class="panel-body">
             {{posts.content}}
             <br>
+            <a href="{{url_for('main.update_post')}}" class="btn btn-primary -center">update post</a>
             <br>
+            <a href="{{url_for('main.delete_post')}}" class="btn btn-primary -center">Delete post</a>
             </div>
     </div>
    

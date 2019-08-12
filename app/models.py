@@ -19,29 +19,6 @@ class Category(db.Model):
     name=db.Column(db.String(255))
 
 
-class Blog(db.Model):
-    __tablename__ = 'blog'
-
-    id = db.Column(db.Integer, primary_key = True )
-    title = db.Column(db.String(100))
-    content = db.Column(db.String(200))
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    category = db.Column(db.String(255))
-    profile_pic_path = db.Column(db.String())
-    
-    
-    
-    def __repr__(self):
-        return f"Blog('{self.title}')"
-
-    
-    def save_blog(self):
-        db.session.add(self)
-        db.session.commit()
-    @classmethod
-    def clear_blog(cls):
-        blogs.all_blogs.clear()
-
 
 
 class User(UserMixin,db.Model):
@@ -73,6 +50,29 @@ class User(UserMixin,db.Model):
     def load_user(user_id):
         return User.query.get(int(user_id))
     
+class Blog(db.Model):
+    __tablename__ = 'blog'
+
+    id = db.Column(db.Integer, primary_key = True )
+    title = db.Column(db.String(100))
+    content = db.Column(db.String(200))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    category = db.Column(db.String(255))
+    profile_pic_path = db.Column(db.String())
+    
+    
+    
+    def __repr__(self):
+        return f"Blog('{self.title}')"
+
+    
+    def save_blog(self):
+        db.session.add(self)
+        db.session.commit()
+    @classmethod
+    def clear_blog(cls):
+        blogs.all_blogs.clear()
+
 
 
 class Comment(db.Model):

@@ -8,16 +8,16 @@ from .forms import UpdateProfile
 from .. import db,photos
 import markdown2 
 @main.route("/pitches")
-def posts(post_id):
+def posts():
     form = CommentForm()
-    post = Pitch.query.get_or_404(post_id)
+    post = Pitch.query.get_or_404()
     comments = Comment.query.all()
 
     if form.validate_on_submit():
-        comment = Comment(comment=form.comment.data, pitch_id=post.id )
+        comment = Comment(comment=form.comment.data)
         db.session.add(comment)
         db.session.commit()
-        return redirect(url_for('posts.post',post_id=post.id))
+        return redirect(url_for('posts.post'))
     return render_template('post.html', title = post.title, posts = posts,comments=comments, form=form)
 
 @main.route("/post/new", methods= ['GET', 'POST'])
@@ -46,13 +46,7 @@ def home():
    page = request.args.get('page', 1, type=int)
    posts=Blog.query.all()
    quotes = get_quote()
-   if 'photo' in request.files:
-        filename = photos.save(request.files['photo'])
-        path = f'photos/{filename}'
-        user.profile_pic_path = path
-        db.session.commit()
    
-
    return render_template('home.html',posts=posts,quotes=quotes)
 
 @main.route('/pitches/inspiration')
@@ -67,13 +61,14 @@ def biograpghy():
     posts=Blog.query.filter_by(category='Biography')
 
     return render_template("biograghy.html", posts=posts)
-main.route('/user/<uname>/pitches')
-def user_pitches(uname):
+@main.route('/user/<uname>/post')
+def user_post(uname):
+   
    user = User.query.filter_by(username=uname).first()
-   pitches = Pitch.query.filter_by(user_id=user.id).all()
+   blog = Blog.query.filter_by(users=user).all()
  
 
-   return render_template("profile/pitches.html", user=user, pitches=pitches, pitches_count=pitches_count, date=user_joined)
+   return render_template("profile/user_posts.html", users=user,posts=posts,blog=blog)
 
 @main.route('/pitches/idea')
 def idea():
@@ -113,15 +108,15 @@ def update_pic(uname):
 @main.route('/comment')
 def comment():
     form = CommentForm()
-    posts = Comment.query.all()
+    posts = Blog.query.all()
     comment = Comment.query.all()
 
     if form.validate_on_submit():
-        comment = Comment(comment=form.comment.data, pitch_id=blog.id )
+        comment = Comment(comment=form.comment.data)
         db.session.add(comment)
         db.session.commit()
-        return redirect(url_for('main.home',))
-    return render_template('new_comment.html', title = post.title, posts = posts,comment=comment, comment_form=form,pitch_id=blog.id)
+        return redirect(url_for('main.comment',))
+    return render_template('new_comment.html', posts = posts,comment=comment, comment_form=form)
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
@@ -131,32 +126,31 @@ def profile(uname):
 
     return render_template("profile/profile.html", user = user)
 
-@main.route("/post/<int:post_id>/update", methods= ['GET', 'POST'])
+@main.route("/post/update", methods= ['GET', 'POST'])
 @login_required
-def update_post(post_id):
-    post = blog.query.get_or_404(post_id)
-    if post.user != current_user:
-        abort(403)
+def update_post():
+    posts = Blog.query.all
+   
     form = BlogForm()
     if form.validate_on_submit():
         blog = Blog(title=form.title.data, content = form.content.data, category = form.category.data)
 
         db.session.commit()
         flash('Your post has been updated', 'success')
-        return redirect(url_for('new_post', post_id =  post.id))
+        return redirect(url_for('main.home'))
     elif request.method == 'GET':
 
         blog = Blog(title=form.title.data, content = form.content.data, category = form.category.data)
-    return render_template('user_post.html',title = 'Update Post', Blog_form = form, legend = 'Update Post')
+    return render_template('post.html',title = 'Update Post', Blog_form = form, legend = 'Update Post',posts=posts)
 
 
 @main.route("/post/delete", methods= ['GET','POST'])
 @login_required
-def delete_post(post_id):
+def delete_post():
     posts = Blog.query.all()
     if post.author != current_user:
         abort(403)
-    db.session.delete(post)
+    db.session.delete(posts)
     db.session.commit()
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('main.home'))

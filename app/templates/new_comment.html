@@ -1,24 +1,35 @@
- {% import "bootstrap/wtf.html" as wtf %}
+{% extends 'base.html'%}
+{% import "bootstrap/wtf.html" as wtf %}
 {% block content %}
  <!-- Comments  -->
-
+ {% if posts %}
+   {%for posts in posts%}
  <h4>Comments for <span id="comtitle">"{{posts.title}}"</span></h4>
+ {% else %}
+ No post in this category yet !!
+ {%endfor%}
+ {% endif %}
  <div class="content-section">
+    {% if comment%}
    {%for comment in comments%}
-     {% if comment.pitch_id == post.id %}
+    
      <div style="width: 18rem;">
        <ul class="list-group list-group-light">
          <li class="list-group-item">{{comment.comment}}</li>
        </ul>
-       {% if post.author == current_user %}
+       {% else %}
+ No comment in this post yet !!
+     
+   {% endfor %}
+   {% endif %}
+       {% if user == current_user %}
          <div class="">
            <button type="button" class = "btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal" name="button">Delete</button>
          </div>
        {% endif %}
 
      </div>
-     {% endif %}
-   {% endfor %}
+     
  </div>
 
 
