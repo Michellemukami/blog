@@ -134,20 +134,20 @@ def profile(uname):
 @main.route("/post/<int:post_id>/update", methods= ['GET', 'POST'])
 @login_required
 def update_post(post_id):
-    post = Pitch.query.get_or_404(post_id)
-    if post.author != current_user:
+    post = blog.query.get_or_404(post_id)
+    if post.user != current_user:
         abort(403)
-    form = PostForm()
+    form = BlogForm()
     if form.validate_on_submit():
-        post.title = form.title.data
-        post.content = form.content.data
+        blog = Blog(title=form.title.data, content = form.content.data, category = form.category.data)
+
         db.session.commit()
         flash('Your post has been updated', 'success')
-        return redirect(url_for('posts.post', post_id =  post.id))
+        return redirect(url_for('new_post', post_id =  post.id))
     elif request.method == 'GET':
-        form.title.data = post.title
-        form.content.data = post.content
-    return render_template('create_post.html',title = 'Update Post', form = form, legend = 'Update Post')
+
+        blog = Blog(title=form.title.data, content = form.content.data, category = form.category.data)
+    return render_template('user_post.html',title = 'Update Post', Blog_form = form, legend = 'Update Post')
 
 
 @main.route("/post/delete", methods= ['GET','POST'])
