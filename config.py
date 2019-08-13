@@ -11,7 +11,7 @@ class Config:
     MAIL_USE_TLS = True
     SQLALCHEMY_TRACK_MODIFICATIONS=True
     MAIL_USERNAME = "michellemukami.g@gmail.com"
-    MAIL_PASSWORD = os.environ.get"kamikaze@99"
+    MAIL_PASSWORD = "kamikaze@99"
     SIMPLEMDE_JS_IIFE = True
     SIMPLEMDE_USE_CDN = True
     QUOTES_API='http://quotes.stormconsultancy.co.uk/random.json'
