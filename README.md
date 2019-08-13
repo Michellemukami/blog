@@ -45,7 +45,7 @@ To run the tests for the class file:
   ```  $ python3.6 manage.py test```
 
 ## Technologies Used
-* Python 3.6
+* Python3.6
 * Flask
 * Bootstrap
 ## Behaviour driven development/ Specifications
