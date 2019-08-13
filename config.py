@@ -16,13 +16,13 @@ class Config:
     SIMPLEMDE_USE_CDN = True
     QUOTES_API='http://quotes.stormconsultancy.co.uk/random.json'
 class ProdConfig(Config):
-     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://michelle:kami@localhost/blogger'
+     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://michelle:kami@localhost/blog'
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://michelle:kami@localhost/blogger_test'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://michelle:kami@localhost/blogs_test'
    
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://michelle:kami@localhost/blogger'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://michelle:kami@localhost/blog'
     
     DEBUG = True
 
