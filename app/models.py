@@ -87,4 +87,5 @@ class Quote:
         self.quote=quote
         self.author=author
 
+
     
