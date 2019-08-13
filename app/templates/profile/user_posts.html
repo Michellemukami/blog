@@ -6,10 +6,11 @@
     <div class="jumbotron">
         <p>User post</p>
     </div>
+    <h1 class="mb-3">Posts by {{current_user.username}}({{blog.total}})</h1>
     {% if posts %}
    {%for posts in blog.items%}
     <div class="panel panel-primary">
-        {{current_user.username}}
+       
         <div class="panel-heading">{{posts.category}}</div>
         <div class="panel-body">
             {{posts.content}}

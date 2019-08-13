@@ -65,7 +65,7 @@ def biograpghy():
 def user_post(uname):
    
    user = User.query.filter_by(username=uname).first()
-   blog = Blog.query.filter_by(users=user).all()
+   blog = Blog.query.filter_by(users=user)
  
 
    return render_template("profile/user_posts.html", users=user,posts=posts,blog=blog)

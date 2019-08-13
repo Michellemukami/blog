@@ -17,9 +17,6 @@ h1, h2, h3, h4, h5, h6, #comment {
 .bg-steel {
   background-color: salmon;
 }
-
-
-
 .content-section {
   background: #ffffff;
   padding: 10px 20px;
@@ -101,28 +98,6 @@ a.article-title:hover {
   -webkit-text-fill-color: rgba(255, 255, 255, 0);
 }
 
-@keyframes animate {
-  0% {
-    background-position: -500%;
-  }
-  100% {
-    background-position: 500%;
-  }
-}
-
-#update{
-
-  color: yellow;
-}
-
-#comtitle{
-  color: salmon;
-}
-
-#subscribe{
-  width: 100%;
-
-}
 
 .btn-default{
   border: 2px solid #e3e3e3;

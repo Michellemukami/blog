@@ -17,10 +17,10 @@
 {% if posts %}
   {% for posts in posts %}
       <article class="media content-section">
-
+        <img class = "rounded-circle article-img" src="" alt="">
     <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2" href="">{{ posts.users.username }}</a>
+        <a class="mr-2" href="">{{ current_user.username}}</a>
       <h2><a class="article-title" href="">{{ posts.title }}</a></h2>
       <p class="article-content">{{ posts.content }}</p>
       <p>Category:<span class="text-muted">{{posts.category}}</span></p>
